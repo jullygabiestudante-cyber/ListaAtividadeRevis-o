@@ -1,21 +1,6 @@
-public class Main {
+package DevJuliaExercicio;
 
-    public static void main(String[] args) {
-        // Exemplo de uso
-        LinkedList<Integer> listA = new LinkedList<>();
-        listA.addLast(1);
-        listA.addLast(3);
-        listA.addLast(5);
-
-        LinkedList<Integer> listB = new LinkedList<>();
-        listB.addLast(2);
-        listB.addLast(4);
-        listB.addLast(6);
-
-
-    }
-
-    public static class LinkedList<T> {
+public class LinkedList<T> {
 
         public static class Node<T> {
 
@@ -89,6 +74,13 @@ public class Main {
                 size++;
             }
         }
+         public void Remove5(){
+            Node<T> prev = getNode(size - 4);
+            Node<T> removido = prev.next;
+            prev.next = removido.next;
+            removido.next = null;
+
+         }
 
 
         public void reverse() {
@@ -107,7 +99,7 @@ public class Main {
             head = prev;
         }
 
-        // CORRIGIDO: agora retorna a nova lista em vez de ser void
+
         @SuppressWarnings("unchecked")
         public static <T> LinkedList<T> juntar(LinkedList<T> listA, LinkedList<T> listB) {
             LinkedList<T> novaList = new LinkedList<>();
@@ -154,5 +146,53 @@ public class Main {
 
             return novaList;
         }
+        public void removeAt(int index) {
+            if (index < 0 || index >= size) {
+                throw new IndexOutOfBoundsException(
+                        "Índice " + index + " está fora do limite para tamanho " + size);
+            }
+
+            Node<T> prev = getNode(index - 1);
+            Node<T> target = prev.next;
+
+            prev.next = target.next;
+            target.next = null;
+            size--;
+
+        }
+
+
+        public void removeN( int index) {
+
+            Node<T> current = head;
+            int cont = 0;
+
+            while(current!= null){
+               cont += 1;
+               current = current.next;
+            }
+
+             getNode(index);
+
+            removeAt(cont - index );
+
+
+        }
+
+
+        public  void imprimirLista(){
+            StringBuilder sb = new StringBuilder("[");
+            Node<T> current = head;
+            while(current!= null){
+                sb.append(current.element);
+
+                if(current.next != null){
+                    sb.append("-> ");
+                }
+                current = current.next;
+
+            }
+                 sb.append("]");
+                 System.out.println( sb.toString());
+        }
     }
-}
